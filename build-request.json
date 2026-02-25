@@ -1,0 +1,59 @@
+{
+  "kind": "build_request",
+  "title": "Fix admin bank details authorization and update footer text",
+  "projectName": "Student Bank",
+  "priority": "high",
+  "requirements": [
+    {
+      "id": "REQ-14",
+      "text": "Fix the broken admin role check on the Bank Details page. When a user is logged in as admin, the 'addBankDetail' (and edit/delete) operations must succeed without returning 'Unauthorized: Only admins can add bank details'. Audit the backend actor's authorization logic for bank detail mutations and the frontend's role-passing mechanism (in useActor and useQueries) to ensure the admin token or role is correctly sent with every mutating call to the canister.",
+      "target": "both",
+      "source": {
+        "messageIds": [
+          "msg-3"
+        ],
+        "quotes": [
+          "Unauthorized: Only admins can add bank details असा मेसेज येत आहे. Admin लॉगीन असताना देखील माहिती भरली जात नाही"
+        ]
+      },
+      "acceptanceCriteria": [
+        "When logged in as admin, clicking 'Add Bank Detail' and submitting the form saves the record without any authorization error.",
+        "When logged in as admin, editing an existing bank detail record succeeds without any authorization error.",
+        "When logged in as admin, deleting an existing bank detail record succeeds without any authorization error.",
+        "The backend actor correctly identifies the caller as admin and permits the mutation.",
+        "The frontend correctly passes the admin role/token with every bank detail mutation call to the canister."
+      ]
+    },
+    {
+      "id": "REQ-15",
+      "text": "Update the footer text across the entire app. Remove the existing footer content '© 2026 Student Bank · Built with ❤️ using caffeine.ai' and replace it with '2026 Student Bank · vaibhavgavali' (no copyright symbol, no tagline).",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-3"
+        ],
+        "quotes": [
+          "©2026 Student Bank · Built with ❤️ using caffeine.ai हे सर्व काढून फक्त 2026 Student Bank · vaibhavgavali असे ठेवा"
+        ]
+      },
+      "acceptanceCriteria": [
+        "The footer displays exactly '2026 Student Bank · vaibhavgavali' with no copyright symbol (©) and no tagline.",
+        "The updated footer text appears consistently on all pages of the app.",
+        "No remnant of the old footer text ('Built with ❤️ using caffeine.ai') remains anywhere in the UI."
+      ]
+    }
+  ],
+  "constraints": [
+    "Do not change the backend data schema for students, accounts, transactions, or bank details.",
+    "Do not modify files listed in frontend.immutablePaths."
+  ],
+  "nonGoals": [
+    "Changing authorization logic for any entity other than bank details.",
+    "Redesigning the footer layout or adding new footer elements.",
+    "Modifying any other page UI beyond the footer text update."
+  ],
+  "imageRequirements": {
+    "required": [],
+    "edits": []
+  }
+}

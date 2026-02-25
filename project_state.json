@@ -1,0 +1,189 @@
+{
+  "schemaVersion": "1.0.0",
+  "projectStateVersion": 7,
+  "summary": "Student Bank mobile app — a full-featured school student banking management system with admin and user roles, colorful dashboard, student management, account management, transactions, history, passbook print, and bank details. Data stored in browser and synced across devices via canister-based storage.",
+  "architectural_notes": [
+    "Role-based access: Admin sees all pages; User sees only Passbook Print and Bank Details",
+    "Admin credentials: username=admin, password=admin; User credentials: username=account number, password=account number",
+    "Data persistence: browser localStorage + canister-based storage for cross-device sync",
+    "Account data to be saved to Google Sheets in addition to local/canister storage"
+  ],
+  "known_issues": [
+    "Bank Details page shows 'Unauthorized: Only admins can add bank details' even when logged in as admin — admin role check is broken for bank details add action"
+  ],
+  "isFixRequest": true,
+  "existing_features": [
+    {
+      "id": "feature-implement-a-login-page-with-two-login-modes-admin-login-username-admin-password-admin-and-user-login-username-account-number-password-account-number-the-page-must-be-stylish-with-a-colorful-gradient-design-on-successful-login-store-the-session-role-admin-or-user-and-redirect-to-the-dashboard-include-a-logout-button-visible-in-the-dashboard-header-sidebar",
+      "title": "Implement a Login page with two login modes: Admin login (username: 'admin', password: 'admin') and User login (username: account number, password: account number). The page must be stylish with a colorful gradient design. On successful login, store the session role (admin or user) and redirect to the dashboard. Include a logout button visible in the dashboard header/sidebar.",
+      "reqIds": [
+        "REQ-1"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-create-a-collapsible-folding-sidebar-dashboard-navigation-with-7-pages-home-student-account-transaction-history-passbook-print-and-bank-details-the-sidebar-should-be-colorful-and-stylish-with-icons-for-each-page-role-based-visibility-home-student-account-transaction-and-history-pages-are-visible-to-admin-only-passbook-print-and-bank-details-are-visible-to-both-admin-and-user",
+      "title": "Create a collapsible/folding sidebar dashboard navigation with 7 pages: Home, Student, Account, Transaction, History, Passbook Print, and Bank Details. The sidebar should be colorful and stylish with icons for each page. Role-based visibility: Home, Student, Account, Transaction, and History pages are visible to admin only; Passbook Print and Bank Details are visible to both admin and user.",
+      "reqIds": [
+        "REQ-2"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-build-the-home-page-admin-only-displaying-5-colorful-summary-cards-total-students-total-accounts-total-deposit-amount-total-withdrawal-amount-and-balance-amount-each-card-must-have-a-distinct-color-and-display-the-live-aggregated-value-from-canister-data",
+      "title": "Build the Home page (admin only) displaying 5 colorful summary cards: Total Students, Total Accounts, Total Deposit Amount, Total Withdrawal Amount, and Balance Amount. Each card must have a distinct color and display the live aggregated value from canister data.",
+      "reqIds": [
+        "REQ-3"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-build-the-student-page-admin-only-with-a-new-student-button-that-opens-a-form-modal-the-form-must-include-student-name-date-of-birth-class-attendance-number-school-name-taluka-district-on-submit-the-student-record-is-saved-to-the-canister-and-displayed-in-a-data-table-each-row-in-the-table-must-have-edit-and-delete-action-buttons",
+      "title": "Build the Student page (admin only) with a 'New Student' button that opens a form modal. The form must include: Student Name, Date of Birth, Class, Attendance Number, School Name, Taluka, District. On submit, the student record is saved to the canister and displayed in a data table. Each row in the table must have Edit and Delete action buttons.",
+      "reqIds": [
+        "REQ-4"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-build-the-account-page-admin-only-with-a-new-account-button-that-opens-a-form-modal-the-form-must-include-student-name-dropdown-from-existing-students-class-auto-filled-based-on-selected-student-bank-name-account-number-initial-amount-ifsc-code-on-submit-the-account-is-saved-to-the-canister-and-displayed-in-a-data-table-with-edit-and-delete-buttons-note-google-sheets-integration-is-not-supported-use-canister-based-storage-instead",
+      "title": "Build the Account page (admin only) with a 'New Account' button that opens a form modal. The form must include: Student Name (dropdown from existing students), Class (auto-filled based on selected student), Bank Name, Account Number, Initial Amount, IFSC Code. On submit, the account is saved to the canister and displayed in a data table with Edit and Delete buttons. Note: Google Sheets integration is not supported; use canister-based storage instead.",
+      "reqIds": [
+        "REQ-5"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-build-the-transaction-page-admin-only-with-a-form-containing-account-number-dropdown-from-existing-accounts-student-name-auto-filled-initial-opening-amount-auto-filled-date-transaction-type-deposit-withdrawal-amount-reason-total-amount-auto-calculated-on-submit-the-transaction-is-saved-to-the-canister-and-shown-in-a-data-table-below-the-form",
+      "title": "Build the Transaction page (admin only) with a form containing: Account Number (dropdown from existing accounts), Student Name (auto-filled), Initial/Opening Amount (auto-filled), Date, Transaction Type (Deposit / Withdrawal), Amount, Reason, Total Amount (auto-calculated). On submit, the transaction is saved to the canister and shown in a data table below the form.",
+      "reqIds": [
+        "REQ-6"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-build-the-history-page-admin-only-with-filters-account-number-text-input-date-from-date-to-and-a-search-button-when-account-number-is-entered-display-the-student-s-full-information-bank-account-details-and-all-matching-transactions-in-a-results-section-provide-a-print-button-triggers-browser-print-and-a-download-button-exports-data-as-a-csv-or-printable-file",
+      "title": "Build the History page (admin only) with filters: Account Number (text input), Date From, Date To, and a Search button. When account number is entered, display the student's full information, bank account details, and all matching transactions in a results section. Provide a Print button (triggers browser print) and a Download button (exports data as a CSV or printable file).",
+      "reqIds": [
+        "REQ-7"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-build-the-passbook-print-page-accessible-to-both-admin-and-user-user-enters-an-account-number-to-look-up-display-a-formatted-passbook-view-showing-student-information-name-class-school-etc-bank-account-details-bank-name-account-number-ifsc-code-and-all-transaction-history-in-chronological-order-with-running-balance-include-a-print-button-to-print-the-passbook",
+      "title": "Build the Passbook Print page (accessible to both admin and user). User enters an Account Number to look up. Display a formatted passbook view showing: Student information (name, class, school, etc.), Bank account details (bank name, account number, IFSC code), and all transaction history in chronological order with running balance. Include a Print button to print the passbook.",
+      "reqIds": [
+        "REQ-8"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-build-the-bank-details-page-accessible-to-both-admin-and-user-admin-can-add-and-manage-bank-records-with-fields-bank-name-taluka-district-ifsc-code-display-all-bank-records-in-a-data-table-with-edit-and-delete-buttons-for-admin-users-can-only-view-the-table",
+      "title": "Build the Bank Details page (accessible to both admin and user). Admin can add and manage bank records with fields: Bank Name, Taluka, District, IFSC Code. Display all bank records in a data table with Edit and Delete buttons for admin. Users can only view the table.",
+      "reqIds": [
+        "REQ-9"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-implement-canister-based-persistent-storage-using-a-motoko-backend-actor-for-all-data-entities-students-accounts-transactions-and-bank-details-all-create-update-delete-operations-must-call-the-backend-canister-so-data-is-synchronized-across-all-devices-and-browsers-for-the-lifetime-of-the-application-the-frontend-must-use-react-query-to-fetch-and-mutate-data-from-the-canister",
+      "title": "Implement canister-based persistent storage using a Motoko backend actor for all data entities: students, accounts, transactions, and bank details. All create/update/delete operations must call the backend canister so data is synchronized across all devices and browsers for the lifetime of the application. The frontend must use React Query to fetch and mutate data from the canister.",
+      "reqIds": [
+        "REQ-10"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-apply-a-vibrant-colorful-mobile-first-visual-theme-across-the-entire-app-use-a-rich-gradient-color-palette-with-distinct-accent-colors-per-section-the-layout-should-feel-like-a-polished-mobile-banking-app-rounded-cards-bold-typography-colorful-icon-badges-in-the-sidebar-and-smooth-transitions-ensure-the-app-is-fully-responsive-and-usable-on-small-screens",
+      "title": "Apply a vibrant, colorful, mobile-first visual theme across the entire app. Use a rich gradient color palette with distinct accent colors per section. The layout should feel like a polished mobile banking app: rounded cards, bold typography, colorful icon badges in the sidebar, and smooth transitions. Ensure the app is fully responsive and usable on small screens.",
+      "reqIds": [
+        "REQ-11"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-fix-the-broken-admin-role-check-on-the-bank-details-page-when-a-user-is-logged-in-as-admin-the-addbankdetail-and-edit-delete-operations-must-succeed-without-returning-unauthorized-only-admins-can-add-bank-details-audit-the-backend-actor-s-authorization-logic-for-bank-detail-mutations-and-the-frontend-s-role-passing-mechanism-in-useactor-and-usequeries-to-ensure-the-admin-token-or-role-is-correctly-sent-with-every-mutating-call-to-the-canister",
+      "title": "Fix the broken admin role check on the Bank Details page. When a user is logged in as admin, the 'addBankDetail' (and edit/delete) operations must succeed without returning 'Unauthorized: Only admins can add bank details'. Audit the backend actor's authorization logic for bank detail mutations and the frontend's role-passing mechanism (in useActor and useQueries) to ensure the admin token or role is correctly sent with every mutating call to the canister.",
+      "reqIds": [
+        "REQ-12",
+        "REQ-14"
+      ],
+      "version": 2
+    },
+    {
+      "id": "feature-update-the-footer-text-across-the-entire-app-remove-the-existing-footer-content-2026-student-bank-built-with-using-caffeine-ai-and-replace-it-with-2026-student-bank-vaibhavgavali-no-copyright-symbol-no-tagline",
+      "title": "Update the footer text across the entire app. Remove the existing footer content '© 2026 Student Bank · Built with ❤️ using caffeine.ai' and replace it with '2026 Student Bank · vaibhavgavali' (no copyright symbol, no tagline).",
+      "reqIds": [
+        "REQ-13",
+        "REQ-15"
+      ],
+      "version": 2
+    }
+  ],
+  "new_feature_requests": [
+    {
+      "id": "AR-1",
+      "summary": "Login page: Admin login (admin/admin) and User login (account number/account number) with stylish colorful UI and logout",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-2",
+      "summary": "Folding/collapsible Dashboard with 7 pages: Home, Student, Account, Transaction, History, Passbook Print, Bank Details — stylish and colorful",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-3",
+      "summary": "Home page with colorful summary cards: total students, total accounts, total deposit, total withdrawal, balance — admin only",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-4",
+      "summary": "Student page: add new student form (name, DOB, class, attendance number, school name, taluka, district), data table with edit/delete — admin only",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-5",
+      "summary": "Account page: new account form (student name dropdown, auto class, bank name, account number, initial amount, IFSC code), save to Google Sheets, data table with edit/delete — admin only",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-6",
+      "summary": "Transaction page: form with account number dropdown, auto student name, auto initial amount, date, transaction type (deposit/withdrawal), amount, reason, total amount; submit shows in data table — admin only",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-7",
+      "summary": "History page: search by account number and date range, show student/bank/transaction info, print and download buttons — admin only",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-8",
+      "summary": "Passbook print page: lookup by account number, print student info + bank info + all transactions — accessible to admin and user",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-9",
+      "summary": "Bank details page: bank name, taluka, district, IFSC code — accessible to admin and user",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-10",
+      "summary": "Canister-based storage for cross-device data sync; all data persists in browser and syncs across all devices for lifetime use",
+      "reqIds": [],
+      "status": "pending"
+    }
+  ],
+  "gameProjectType": "none",
+  "projectName": "Student Bank",
+  "clarification_mode": "instant",
+  "clarification_rounds": 0
+}

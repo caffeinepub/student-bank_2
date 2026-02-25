@@ -1,0 +1,61 @@
+{
+  "kind": "implementation_plan",
+  "version": "1.0",
+  "title": "Fix admin bank details authorization and update footer text",
+  "requirements": [
+    {
+      "id": "REQ-14",
+      "summary": "Fix broken admin role check on Bank Details page mutations by ensuring the frontend properly uses Internet Identity authentication and the backend authorization component's role system for all bank detail operations",
+      "acceptanceCriteria": [
+        "When logged in as admin, clicking 'Add Bank Detail' and submitting the form saves the record without any authorization error.",
+        "When logged in as admin, editing an existing bank detail record succeeds without any authorization error.",
+        "When logged in as admin, deleting an existing bank detail record succeeds without any authorization error.",
+        "The backend actor correctly identifies the caller as admin and permits the mutation.",
+        "The frontend correctly passes the admin role/token with every bank detail mutation call to the canister."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/pages/BankDetailsPage.tsx",
+          "operation": "modify",
+          "description": "Remove any custom authorization checks or role-based UI hiding that bypass the backend authorization. Ensure the component relies on Internet Identity authentication state from useInternetIdentity and displays backend authorization errors properly when mutations fail. The mutations in useQueries already use the authenticated actor from useActor, so verify error handling shows authorization failures clearly to the user."
+        },
+        {
+          "path": "frontend/src/hooks/useQueries.ts",
+          "operation": "modify",
+          "description": "Review all bank detail mutation hooks (useAddBankDetail, useUpdateBankDetail, useDeleteBankDetail) to confirm they are using the actor from useActor (which includes the authenticated Internet Identity caller context). Ensure mutations surface backend authorization errors (e.g., 'Unauthorized: Only admins can add bank details') to the UI layer without swallowing them. Add proper error type handling if needed."
+        },
+        {
+          "path": "frontend/src/components/BankFormModal.tsx",
+          "operation": "modify",
+          "description": "Ensure the form displays backend authorization errors clearly when a mutation fails. Remove any frontend-side role checks that might prevent form submission. The backend authorization component will handle access control; the frontend should attempt the mutation and show the error if unauthorized."
+        },
+        {
+          "path": "frontend/src/context/AuthContext.tsx",
+          "operation": "modify",
+          "description": "Audit the AuthContext to ensure it is not interfering with Internet Identity authentication or overriding the backend's authorization component. If AuthContext is storing a separate admin/user state in localStorage, verify it does not block authenticated Internet Identity users from performing admin operations. The backend authorization component (via useActor) should be the authoritative source of admin status."
+        },
+        {
+          "path": "frontend/src/App.tsx",
+          "operation": "modify",
+          "description": "Review how App.tsx uses AuthContext and Internet Identity together. Ensure the app does not require a separate localStorage-based login when the user is already authenticated via Internet Identity. If the AuthContext login flow is redundant or conflicting with Internet Identity, refactor to rely solely on Internet Identity and backend role checks via getCallerUserRole or isCallerAdmin."
+        }
+      ]
+    },
+    {
+      "id": "REQ-15",
+      "summary": "Update footer text across the entire app to display '2026 Student Bank · vaibhavgavali' without copyright symbol or tagline",
+      "acceptanceCriteria": [
+        "The footer displays exactly '2026 Student Bank · vaibhavgavali' with no copyright symbol (©) and no tagline.",
+        "The updated footer text appears consistently on all pages of the app.",
+        "No remnant of the old footer text ('Built with ❤️ using caffeine.ai') remains anywhere in the UI."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/components/DashboardLayout.tsx",
+          "operation": "modify",
+          "description": "Locate the footer element in DashboardLayout and replace the current footer text '© 2026 Student Bank · Built with ❤️ using caffeine.ai' with '2026 Student Bank · vaibhavgavali'. Remove the copyright symbol (©) and the 'Built with ❤️ using caffeine.ai' tagline entirely. Ensure the footer element remains styled consistently but displays only the new text."
+        }
+      ]
+    }
+  ]
+}

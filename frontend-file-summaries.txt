@@ -1,0 +1,8 @@
+{
+  "frontend/src/App.tsx": "Root application component using Internet Identity for authentication; shows a login screen for unauthenticated users and renders DashboardLayout with role fetched from the backend actor for authenticated users.",
+  "frontend/src/components/DashboardLayout.tsx": "Collapsible sidebar navigation layout using correct existing page component names (StudentPage, AccountPage, TransactionPage, HomePage), with role-based nav visibility, page rendering, user principal display, sign-out, and footer showing \"2026 Student Bank · vaibhavgavali\".",
+  "frontend/src/pages/PassbookPage.tsx": "Passbook page that fetches the caller's role directly from the backend actor (removing the old useAuth dependency), shows a search form for account number, and displays student info, account details, and sorted transaction history with print support.",
+  "frontend/src/pages/BankDetailsPage.tsx": "Bank Details page showing a table of all registered banks; admin users get add/edit/delete controls while regular users see a read-only view, with proper error surfacing from backend mutations.",
+  "frontend/src/components/BankFormModal.tsx": "Modal form for creating and editing bank detail records with fields for bank name, taluka, district, and IFSC code; surfaces backend authorization errors via toast notifications.",
+  "frontend/src/hooks/useQueries.ts": "All React Query hooks for backend operations; useGetTransactionHistory restored to accept nullable bigint params (matching HistoryPage's usage), with all bank detail, student, account, transaction, passbook, and role query/mutation hooks."
+}

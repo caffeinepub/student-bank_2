@@ -1,0 +1,46 @@
+{
+  "kind": "feature_evidence_report",
+  "features": [
+    {
+      "featureId": "feature-fix-the-broken-admin-role-check-on-the-bank-details-page-when-a-user-is-logged-in-as-admin-the-addbankdetail-and-edit-delete-operations-must-succeed-without-returning-unauthorized-only-admins-can-add-bank-details-audit-the-backend-actor-s-authorization-logic-for-bank-detail-mutations-and-the-frontend-s-role-passing-mechanism-in-useactor-and-usequeries-to-ensure-the-admin-token-or-role-is-correctly-sent-with-every-mutating-call-to-the-canister",
+      "featureTitle": "Fix the broken admin role check on the Bank Details page. When a user is logged in as admin, the 'addBankDetail' (and edit/delete) operations must succeed without returning 'Unauthorized: Only admins can add bank details'. Audit the backend actor's authorization logic for bank detail mutations and the frontend's role-passing mechanism (in useActor and useQueries) to ensure the admin token or role is correctly sent with every mutating call to the canister.",
+      "files": [
+        "frontend/src/App.tsx",
+        "frontend/src/components/BankFormModal.tsx",
+        "frontend/src/hooks/useQueries.ts",
+        "frontend/src/pages/BankDetailsPage.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-14"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-update-the-footer-text-across-the-entire-app-remove-the-existing-footer-content-2026-student-bank-built-with-using-caffeine-ai-and-replace-it-with-2026-student-bank-vaibhavgavali-no-copyright-symbol-no-tagline",
+      "featureTitle": "Update the footer text across the entire app. Remove the existing footer content '© 2026 Student Bank · Built with ❤️ using caffeine.ai' and replace it with '2026 Student Bank · vaibhavgavali' (no copyright symbol, no tagline).",
+      "files": [
+        "frontend/src/components/DashboardLayout.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-15"
+      ],
+      "confidence": "high"
+    }
+  ]
+}
